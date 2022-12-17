@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="title">TARJETA CRÉDITO</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="title">{{ accion | uppercase }} TARJETA</h5>
+                    <form [formGroup]="form" (ngSubmit)="guardarTarjeta()">
+                        <div class="input-group-lg input-group mb-3">
+                            <span class="input-group-text"><i class="fa-solid fa-user" [class.green-icon]="this.form.get('titular')?.valid"
+                                [class.red-icon]="this.form.get('titular')?.invalid && this.form.get('titular')?.touched"></i></span>
+                            <input formControlName="titular" type="text" class="form-control" placeholder="Titular">
+                        </div>
+                        <div class="input-group-lg input-group mb-3">
+                            <span class="input-group-text"><i class="fa-solid fa-credit-card" [class.green-icon]="this.form.get('nroTarjeta')?.valid"
+                                [class.red-icon]="this.form.get('nroTarjeta')?.invalid && this.form.get('nroTarjeta')?.touched"></i></span>
+                            <input formControlName="nroTarjeta" maxlength="16" type="text" class="form-control" placeholder="Nro. Tarjeta">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="input-group-lg input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-calendar-days" [class.green-icon]="this.form.get('fechaExp')?.valid"
+                                        [class.red-icon]="this.form.get('fechaExp')?.invalid && this.form.get('fechaExp')?.touched"></i></span>
+                                    <input formControlName="fechaExp" type="text" class="form-control" placeholder="MM/YY">
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="input-group-lg input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-key" [class.green-icon]="this.form.get('cvv')?.valid"
+                                        [class.red-icon]="this.form.get('cvv')?.invalid && this.form.get('cvv')?.touched"></i></span>
+                                    <input formControlName="cvv" maxlength="3" type="password" class="form-control" placeholder="CVV">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button [disabled]="this.form.invalid" type="submit" class="btn btn-success btn-lg">
+                            <i class="fa-solid fa-database"></i>&nbsp;Aceptar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="title">LISTADO DE TARJETAS</h5>
+                    <table class="table">
+                        <tbody>
+                            <tr *ngFor="let tarjeta of listTarjetas">
+                                <td>{{ tarjeta.titular }}</td>
+                                <td>{{ tarjeta.nroTarjeta }}</td>
+                                <td>{{ tarjeta.fechaExp }}</td>
+                                <td><i (click)="editarTarjeta(tarjeta)" class="fa-regular fa-pen-to-square text-info"></i></td>
+                                <td><i (click)="eliminarTarjeta(tarjeta.id)" class="fa-regular fa-trash-can text-danger"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
